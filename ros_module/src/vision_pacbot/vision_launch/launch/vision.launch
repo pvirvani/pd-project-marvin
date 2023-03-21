@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+    <arg name="pattern" default="complex" />
+
+    <!-- ===== -->
+    <!-- Nodes -->
+    <!-- ===== -->
+
+    <node type="yumi_motion_status.py" name="yumi_motion_status" pkg="yumi_motion_status" output="screen" />
+
+    <node type="vision_driver.py" name="perception" pkg="perception" output="screen" />
+
+    <node type="model_validator.py" name="model_validator" pkg="model_validator" args="$(arg pattern)" output="screen" />
+
+    <!-- ====== -->
+    <!-- Launch -->
+    <!-- ====== -->
+    <include file="$(find model_accumulator)/launch/model_accumulator.launch"/>
+
+    <!-- <include file="$(find vision_logic)/launch/vision_logic.launch"> 
+        <arg name="pattern" value="$(arg pattern)"/>
+    </include>
+    -->
+</launch>
+

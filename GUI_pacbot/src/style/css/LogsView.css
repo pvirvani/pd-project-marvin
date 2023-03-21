@@ -1,0 +1,19 @@
+/* .Log{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+} */
+
+.param{
+    overflow: scroll;
+    border: solid;
+    border-color: #353232;
+    height: 80%;
+    width: 100%;
+}
+
+#logs{
+    overflow: scroll;
+    scrollbar-width: 15px;
+}
+

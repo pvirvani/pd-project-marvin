@@ -1,0 +1,10 @@
+vision_pacbot/vision_logic
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/cmake.lock /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/./cmake.lock
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/lib/pkgconfig/vision_logic.pc /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/lib/pkgconfig/vision_logic.pc
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/lib/python3/dist-packages/vision_logic/__init__.py /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/lib/python3/dist-packages/vision_logic/__init__.py
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/lib/vision_logic/cmake.lock /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/lib/vision_logic/cmake.lock
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/lib/vision_logic/vision_logic.py /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/lib/vision_logic/vision_logic.py
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/share/vision_logic/cmake/vision_logicConfig.cmake /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/share/vision_logic/cmake/vision_logicConfig.cmake
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/share/vision_logic/cmake/vision_logicConfig-version.cmake /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/share/vision_logic/cmake/vision_logicConfig-version.cmake
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/bin/cmake.lock /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/bin/cmake.lock
+/home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/.private/vision_logic/bin/vision_logic.py /home/pardeep/pardeep_files/pd-project-marvin/ros_module/devel/bin/vision_logic.py

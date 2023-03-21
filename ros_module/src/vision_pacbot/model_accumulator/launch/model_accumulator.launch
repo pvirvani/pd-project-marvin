@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+   <arg name="path" value="$(find model_accumulator)/database/" doc="The Path"/>
+
+   <node 
+      pkg="model_accumulator"
+      type="model_accumulator.py"
+      name="model_accumulator_node"
+      args="$(arg path)"
+      cwd="node"
+   />
+
+</launch>

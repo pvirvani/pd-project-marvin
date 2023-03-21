@@ -1,0 +1,47 @@
+#controls{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* align-items: center; */
+    overflow: hidden;
+    /* margin-bottom: 15px; */
+    user-select: none;
+}
+
+.param{
+    overflow: hidden;
+    border: solid;
+    border-color: #353232;
+    background-color: #474444;
+}
+
+#combo1{
+    position: relative;
+    padding: 15px;
+    margin: 15px;
+}
+
+#combo2{
+    position: relative;
+    padding: 15px;
+    margin: 15px;
+}
+
+#speedslider{
+    position: relative;
+    /* padding: 15px;
+    margin: 15px; */
+}
+
+#startstop{
+    position: relative;
+    padding: 15px;
+    margin: 15px;
+}
+
+#emergency{
+    position: relative;
+    padding: 15px;
+    margin: 15px;
+}

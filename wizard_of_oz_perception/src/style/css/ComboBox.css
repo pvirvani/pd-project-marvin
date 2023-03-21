@@ -1,0 +1,29 @@
+.combobox{
+    width: 10%;
+    display: inline-block;
+    /* max-width: 140px; */
+    position: relative;
+    /* border: 1px solid rgb(108, 216, 104); */
+    /* padding: 0px; */
+    border-radius: 15px;
+    font-size:20pt;
+    font-weight: bold;
+    text-align: center;
+    background-color: #474444;
+    color: black;
+    border: solid 5px;
+    border-color: royalblue;
+}
+
+.combobox select {
+    /* background: transparent; */
+    background-color: #474444;
+    color: rgb(255, 255, 255);
+    width: fit-content;
+    font-size:16pt;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 6px;
+    padding: 15px;
+}

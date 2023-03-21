@@ -1,0 +1,13 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/pardeep/pardeep_files/pd-project-modules/ros_module/devel/lib/python3/dist-packages",
+        "/home/pardeep/ros_ws/ws_moveit/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/pardeep/pardeep_files/pd-project-modules/ros_module/devel/lib/python3/dist-packages",
+        "/home/pardeep/ros_ws/ws_moveit/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "cmake.configureOnOpen": false
+}

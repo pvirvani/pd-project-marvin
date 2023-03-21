@@ -1,0 +1,150 @@
+:root {
+  --plan-width: 15%;
+  --plan-height: 80%;
+}
+
+#main {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#scene {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: var(--plan-height);
+  float: right;
+}
+
+#mainplan {
+  overflow-x: hidden;
+  position: absolute;
+  width: var(--plan-width);
+  height: var(--plan-height);
+  display: inline-block;
+  background-color: #474444;
+  left: 0%;
+  top: 0%;
+  scrollbar-width: 20px;
+}
+
+#titleControl {
+  /* position: inherit; */
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 17%;
+  /* margin: 1px; */
+  padding: 1px;
+  background-color: #575555;
+}
+
+#control_logs {
+  height: calc(100% - var(--plan-height));
+  display: block;
+}
+
+#save {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.save:hover {
+  cursor: pointer;
+}
+
+.tablink {
+  color: #e2c5c5;
+  background-color: #474444;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: medium;
+  padding: 10px;
+  /* margin: 5px; */
+  min-width: 150px;
+  align-self: center;
+  text-align: center;
+}
+
+.borderLink {
+  border: solid;
+  border-color: #353232;
+  border-bottom-style: none;
+  border-radius: 5px;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 240px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  /* bottom: 100%; */
+  left: 50%;
+  margin-left: -120px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  align-self: center;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: relative;
+  /* top: 100%; */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: --plan-width 1s ease;
+}
+.slide-enter,
+.hide-leave-to {
+  --plan-width: 1%;
+}
+
+.fa-angles-right {
+  color: rgb(0, 0, 0);
+  position: absolute;
+  /* margin: 10px; */
+  background-color: #726d6d;
+  /* border: solid; */
+  left: 0%;
+  top: 0%;
+  padding: 10px;
+  opacity: 0.2;
+  z-index: 99;
+  height: var(--plan-height);
+  width: 15px;
+}
+
+.fa-angles-right:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.fa-angles-right:before,
+.fa-angles-right-x:after {
+  left: 15px;
+  content: " ";
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}

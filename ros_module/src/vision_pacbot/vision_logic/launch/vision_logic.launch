@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+   <arg name="path" value="$(find vision_logic)/database/" doc="The Path"/>
+   <arg name="pattern" default="complex" doc="The Pattern"/>
+
+   <node 
+      pkg="vision_logic"
+      type="vision_logic.py"
+      name="vision_logic_node"
+      args="$(arg path) $(arg pattern)"
+      output="screen"
+      cwd="node"
+   />
+
+</launch>

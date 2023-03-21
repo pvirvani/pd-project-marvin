@@ -1,0 +1,31 @@
+.combobox{
+    display: inline-block;
+    /* max-width: 140px; */
+    position: relative;
+    /* border: 1px solid rgb(108, 216, 104); */
+    padding: 0px;
+    border-radius: 6px;
+    font-size:20pt;
+    font-weight: bold;
+    text-align: center;
+    background-color: #474444;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.combobox p{
+    margin: 0px;
+ }
+
+.combobox select {
+    /* background: transparent; */
+    background-color: #474444;
+    color: rgb(220, 226, 250);
+    width: fit-content;
+    font-size:16pt;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 6px;
+    padding: 5px;
+    font-family: 'Fira Sans', sans-serif;
+}

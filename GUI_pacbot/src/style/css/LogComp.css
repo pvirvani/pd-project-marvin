@@ -1,0 +1,25 @@
+.Log{
+    /* width: 100%; */
+    display: flex;
+    /* justify-content: space-between; */
+    border: dotted 1px;
+    border-color: rgb(120, 102, 221);
+    margin: 3px;
+}
+
+#logsText{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#logsText p{
+    padding-left: 0px;
+    padding-right: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.strikethrough{
+    text-decoration: line-through;
+}

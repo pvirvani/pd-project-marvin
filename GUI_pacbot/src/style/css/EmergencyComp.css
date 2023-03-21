@@ -1,0 +1,73 @@
+#stopbutton{
+    width: 200px;
+    height: 200px;
+    background-color: coral;
+    border: solid black;
+    position: relative;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.boulon {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: #696464;
+    position: absolute;
+}
+
+#boulon_hg{
+    top: 7px;
+    left: 7px;
+}
+
+#boulon_hd{
+    top: 7px;
+    right: 7px;
+}
+
+#boulon_bg{
+    bottom: 7px;
+    left: 7px;
+}
+
+#boulon_bd{
+    bottom: 7px;
+    right: 7px;
+}
+
+#emergencytop{
+    font-family: "Arial Narrow", Arial, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    top : 1px;
+    left: 50%;
+    width: 125px;
+    transform: translate(-50%, 0%)
+}
+
+#emergencybot{
+    font-family: "Arial Narrow", Arial, sans-serif;    
+    font-weight: bold;    
+    position: absolute;
+    bottom : 1px;
+    left: 50%;
+    width: 125px;
+    transform: translate(-50%, 0%)
+}
+
+.bigcercle{
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    background:brown;
+    border: solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.bigcercle:hover{
+    cursor: pointer;
+}

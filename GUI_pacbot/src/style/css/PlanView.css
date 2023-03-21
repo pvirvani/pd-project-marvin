@@ -1,0 +1,62 @@
+.plan{
+    display: block;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+#planOl{
+    list-style-type: none;
+    position: relative;
+    display: block;
+    padding-left: 0;
+    justify-content: space-between;
+}
+
+#plan-header{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 1px;
+    overflow: hidden;
+    user-select: none;
+}
+#plan-header ul{
+    width: 95%;
+    margin: 0;
+    padding: 0;
+}
+
+#plan-header h1{
+    text-align: center;
+    margin: 0 auto;
+    color: antiquewhite;
+}
+
+
+#plan-header h2{
+    margin: 0px;
+    padding-left: 3%;
+    color: white;
+}
+
+.fa-x{
+    color: rgb(0, 0, 0);
+    position: relative;
+    /* margin: 10px; */
+    background-color:  #726d6d;
+    border: solid;
+    padding: 10px;
+    opacity: 0.3;
+}
+.fa-x:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .fa-x:before, .fa-x:after {
+
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }

@@ -1,0 +1,32 @@
+#chrono{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .img{
+    width: 105px;
+    height: 105px;
+    /* padding-top: 100px; */
+  }
+  .timer{
+    color: #fff;
+    font-size: 17px;
+    margin-top: -52px;
+  }
+  .interval{
+    color: #fff;
+    flex: 1;
+    width: 420px;
+    /* margin-top: 15px; */
+  }
+  .interval ul{
+    text-align: center;
+  }
+  .interval ul li{
+    list-style: none;
+    background-color: rgb(70,70,70);
+    padding: 15px;
+    margin-bottom: 10px;
+  }

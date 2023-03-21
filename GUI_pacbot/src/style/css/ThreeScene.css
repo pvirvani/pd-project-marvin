@@ -1,0 +1,213 @@
+#container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+#arms {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0%;
+}
+
+.view {
+  border-color: #353232;
+  height: 100%;
+  width: 100%;
+  /* background: linear-gradient(#1f1d1d, #777272); */
+  border: solid;
+}
+
+.scene-background{
+  position: absolute;
+  border-color: #353232;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(#1f1d1d, #777272);
+  border: solid;
+}
+
+#lefthand {
+  position: absolute;
+  left: 85%;
+  top: 0%;
+  padding: 10px;
+  color: white;
+  vertical-align: middle;
+  text-align: center;
+
+}
+#lefthand img{
+  height: 150px;
+  width: 150px;
+}
+#lefthand p{
+  text-align: center;
+  padding-right: 20%;
+}
+
+#righthand {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  padding: 10px;
+  color: white;
+  vertical-align: middle;
+  text-align: center;
+}
+#righthand img{
+  height: 150px;
+  width: 150px;
+}
+#righthand p{
+  text-align: center;
+  padding-left: 20%;
+}
+
+.normal_bg{
+  background-color: #21252d;
+}
+
+.blink_bg{
+  background: #635f5d;
+  border-radius: 50px;
+  animation: blinkingBackground 0.7s infinite;
+}
+@keyframes blinkingBackground {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Error Alarm Circle */
+#circle {
+  color: #ffffff;
+  background: #ff5500;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  display: inline-block;
+  animation: blinkingBackground 0.5s infinite;
+}
+@keyframes blinkingBackground {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#arrow-mark{
+  color: #f1482a;
+  width: 50px;
+  height: 60px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  display: inline-block;
+  animation: blinkingBackground 0.75s infinite;
+}
+@keyframes blinkingBackground {
+  0% {
+    opacity: 0.0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.0;
+  }
+}
+
+#finish{
+  border-radius: 5px;
+  color:#0e3d07;
+  background-color: rgb(224, 245, 35);
+  text-align: center;
+  font-size: xx-large;
+  animation: blinkingBackground 0.75s infinite;
+}
+@keyframes blinkingBackground {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#simple{
+  position: absolute;
+  left: 40%;
+  top: 0%;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#simple img{
+height: 275px;
+align-items: center;
+}
+
+#simple p{
+  color: white;
+}
+
+#complex{
+  position: absolute;
+  left: 40%;
+  top: 0%;
+  
+  vertical-align: middle;
+  text-align: center;
+}
+#complex img{
+  height: 275px;
+  align-items: center;
+}
+
+#complex p{
+  color: white;
+}
