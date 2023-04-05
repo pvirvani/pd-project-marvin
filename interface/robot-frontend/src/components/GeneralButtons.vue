@@ -10,14 +10,14 @@
       size='40px'
       style="width:200px;height: 80px; font-size:20px" />
 
-<q-btn to="/actions"
+<!-- <q-btn to="/actions"
       color="primary"
       push
       no-caps
       label="Actions"
       icon="o_question_mark"
       size='40px'
-      style="width:200px;height: 80px; font-size:20px" />
+      style="width:200px;height: 80px; font-size:20px" /> -->
 <q-btn to="/problems"
       color="primary"
       push

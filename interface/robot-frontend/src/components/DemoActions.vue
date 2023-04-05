@@ -1,10 +1,10 @@
 <template>
   <div class="q-pa-md q-gutter-sm row">
-    <div>
-      <GeneralButtons></GeneralButtons>
-    </div>
+    <!-- <div>
+            <GeneralButtons></GeneralButtons>
+        </div> -->
     <!-- parameter {{ lego_data }} -->
-    <div class="q-pa-md q-gutter-sm" style="width: 800px">
+    <div class="q-pa-md q-gutter-sm" style="width: 600px">
       <q-table
         title="Actions"
         :columns="columns"
@@ -14,13 +14,51 @@
         v-model:selected="selectedAction"
       >
       </q-table>
+      
       <!-- functionality of ADD Button -->
       <q-btn
         icon="o_file_open"
         color="primary"
         label="Add"
+        align="center"
         @click="addprompt = true"
       />
+
+      <!-- Functionality of Clone Button -->
+      <!-- <q-btn
+        color="primary"
+        icon="o_copy"
+        label="Copy"
+        @click="copyProject(selectedProject[0])"
+      /> -->
+
+      <!-- Functionality of Edit Button -->
+      <q-btn
+        color="primary"
+        icon="o_drive_file_rename_outline"
+        label="Edit"
+        @click="editprompt = true"
+      />
+
+      <!-- Functionality of Delete Button -->
+      <q-btn
+        color="red"
+        icon="o_delete"
+        label="Delete"
+        align="center"
+        @click="deleteprompt = true"
+        type="submit"
+      />
+      &emsp;
+      <!-- functionality of ADD Button -->
+      <q-btn
+      icon="o_play_arrow"
+        color="green"
+        label="Demonstrate"
+        align="center"
+        @click="demonstrateprompt = true"
+      />
+
 
       <!-- add prompt for flask api -->
       <q-dialog v-model="addprompt" persistent auto-close="false">
@@ -85,6 +123,38 @@
         </q-card>
       </q-dialog>
 
+      <!-- delete prompt flask api -->
+      <q-dialog v-model="deleteprompt" persistent auto-close="false">
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">
+              Do you want to delete: {{ selectedAction[0].action_name }}
+            </div>
+            <!-- <div> {{}}</div> -->
+          </q-card-section>
+          <q-card-actions
+            align="right"
+            class="text-primary"
+            label="Do you want to delete the Action"
+          >
+            <q-btn flat label="Cancel" v-close-popup />
+            <q-btn
+              flat
+              label="Delete"
+              v-close-popup
+              type="submit"
+              @click="
+                deleteAction(
+                  parent_id,
+                  parent_name,
+                  selectedAction[0].action_id
+                )
+              "
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+
       <!-- </q-page> -->
       <div style="background-color: white">
         <p>
@@ -100,7 +170,6 @@
 import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { api } from "src/boot/axios";
-import GeneralButtons from "src/components/GeneralButtons.vue";
 import RosConnection from "src/pages/RosConnection.vue";
 import { action_parameter } from "src/stores/action_parameter";
 let addprompt = ref(false);
@@ -157,7 +226,7 @@ function addAction(aname, aparam) {
     // p_actions: 0,
   };
   api
-    .post("/actions", payload)
+    .post("/addactions", payload)
     .then((response) => {
       getActions();
       astore.removeparameter();
@@ -180,6 +249,37 @@ function addAction(aname, aparam) {
       });
     });
 }
+
+function deleteAction(pt_id, pt_name, act_id) {
+  const payload = {
+    parent_id: pt_id,
+    parent_name: pt_name,
+    demo_id: act_id,
+  };
+  api
+    .post("/deleteaction", payload)
+    .then((response) => {
+      actions.value = response.data.actions;
+      // books.value = response.data.books
+      $q.notify({
+        color: "green",
+        position: "top",
+        message: "Action Deleted",
+        icon: "o_done",
+        timeout: 500,
+      });
+    })
+    .catch(() => {
+      $q.notify({
+        color: "negative",
+        position: "top",
+        message: "Action not deleted",
+        icon: "report_problem",
+        timeout: 500,
+      });
+    });
+}
+
 function initForm() {
   aname.value = "";
   aparam.value = "";

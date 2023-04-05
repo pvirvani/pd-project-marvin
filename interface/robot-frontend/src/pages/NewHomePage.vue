@@ -10,11 +10,11 @@
     >
     </q-table>
   </div>
-  
+
   <div class="q-pa-md q-gutter-sm">
     <!-- functionality of ADD Button -->
     <q-btn
-      icon="o_file_open"
+      icon="o_add"
       color="primary"
       label="Add"
       @click="addprompt = true"
@@ -22,8 +22,7 @@
 
     <!-- functionality of Open Button -->
     <q-btn
-      :to="{name: 'demo',
-            params:{ id: global_project_id}}"
+      :to="{ name: 'demo', params: { id: global_project_id } }"
       icon="o_file_open"
       color="primary"
       label="Open"
@@ -32,7 +31,7 @@
     <!-- Functionality of Clone Button -->
     <q-btn
       color="primary"
-      icon="o_copy"
+      icon="o_file_copy"
       label="Copy"
       @click="copyProject(selectedProject[0])"
     />
@@ -118,7 +117,10 @@
             label="OK"
             v-close-popup
             type="submit"
-            @click="addProject(pname);initForm()"
+            @click="
+              addProject(pname);
+              initForm();
+            "
           />
           <!-- @click="addProject(pname, pproblems, pactions)" -->
           <!-- <q-btn flat label="Reset" type="reset" @click="initForm()" /> -->
@@ -217,7 +219,10 @@
             label="Update"
             v-close-popup
             type="submit"
-            @click="editProject(pname, selectedProject[0].p_id);initForm()"
+            @click="
+              editProject(pname, selectedProject[0].p_id);
+              initForm();
+            "
           />
           <!-- @click="editProject(pname, pproblems, pactions, selectedProject[0].p_id)" -->
           <!-- <q-btn flat label="Reset" type="reset" @click="initForm()" /> -->
@@ -251,8 +256,12 @@
       </q-card>
     </q-dialog>
     <div hidden>
-    {{ (selectedProject.length >= 1) ? (global_project_id = selectedProject[0].p_id) : "" }}
-  </div>
+      {{
+        selectedProject.length >= 1
+          ? (global_project_id = selectedProject[0].p_id)
+          : ""
+      }}
+    </div>
   </div>
 </template>
 
@@ -461,7 +470,6 @@ function initForm() {
 let global_project_id = ref("");
 getProject();
 </script>
-
 
 <style>
 #projecttable {

@@ -2,6 +2,8 @@ interface/robot-backend/env/
 ros_module/build/
 ros_module/devel/
 ros_module/logs/
+ros_module/.catkin_tools/
 tests/ros_tests/catkin_ws/build/
 tests/ros_tests/catkin_ws/devel/
 tests/ros_tests/catkin_ws/logs/
+tests/ros_tests/catkin_ws/.catkin_tools/

@@ -1,11 +1,14 @@
+// This page combines the previous OnDemonstration and OnActions Functionality
+into one.
+
 <template>
   <div class="q-pa-md q-gutter-y-md column" style="background-color: bisque">
     <p style="font-size: 20px; text-align: center">
       <b> Project: {{ parent_name }}</b>
     </p>
   </div>
-  <!-- <br />
-  <br /> -->
+  <br />
+  <br />
   <div class="q-pa-md q-gutter-sm row">
     <div>
       <GeneralButtons />
@@ -22,59 +25,33 @@
       </q-table>
       <!-- functionality of ADD Button -->
       <q-btn
-        icon="o_add"
+        icon="o_file_open"
         color="primary"
         label="Add"
         @click="addprompt = true"
       />
 
       <!-- functionality of Open Button -->
-      <!-- <q-btn
-      :to="{name: 'demo',
-            params:{ id: global_project_id}}"
-      icon="o_file_open"
-      color="primary"
-    /> -->
-      <!-- <div class="q-pa-md q-gutter-md" v-if="displayActions">
-    <q-card class="my-card" style="width: 700px">
-      <q-card-section>
-        <div class="text-h6">Recorded Actions</div>
-        <div class="text-subtitle2"></div>
-      </q-card-section>
-      <q-separator/>
-      <q-card-section>
-        <q-table
-          title="Actions"
-          :columns="action_columns"
-          :rows="actions"
-          row-key="action_id"
-          selection="single"
-          v-model:selected="selectedAction">
-      </q-table>
-      </q-card-section>
-    </q-card> 
-    </div> -->
-      <!-- Fucntionality of Open Button -->
       <q-btn
+        :to="{ name: 'demo', params: { id: global_project_id } }"
         icon="o_file_open"
         color="primary"
         label="Open"
-        @click="displayActions = true;getActions(parent_id, parent_name, selectedDemo[0].demo_id);"
       />
 
-      <!-- Functionality of Clone Button -->
+      <!-- Functionality of Copy Button -->
       <q-btn
         color="primary"
-        icon="o_file_copy"
+        icon="o_copy"
         label="Copy"
         @click="copyDemo(parent_id, parent_name, selectedDemo[0].demo_name)"
       />
 
       <!-- Functionality of Clone Button -->
       <!-- <q-btn color="primary"
-               icon="o_drive_file_rename_outline"
-               label="Edit"
-               @click="editSelected(selected)" /> -->
+                 icon="o_drive_file_rename_outline"
+                 label="Edit"
+                 @click="editSelected(selected)" /> -->
 
       <q-btn
         color="primary"
@@ -91,6 +68,34 @@
         @click="deleteprompt = true"
         type="submit"
       />
+      <div class="q-pa-md q-gutter-md row">
+        <q-card class="my-card" style="width: 700px">
+          <q-card-section>
+            <div class="text-h6">Selected Actions</div>
+            <div class="text-subtitle2"></div>
+          </q-card-section>
+        </q-card>
+
+        <q-card class="my-card" style="width: 700px">
+          <q-card-section>
+            <div class="text-h6">Avaialable Actions</div>
+            <div class="text-subtitle2"></div>
+          </q-card-section>
+          <q-separator />
+          <q-card-section>
+            <q-table
+              title="Actions"
+              :columns="action_columns"
+              :rows="actions"
+              row-key="action_id"
+              selection="single"
+              v-model:selected="selectedAction"
+            >
+            </q-table>
+          </q-card-section>
+        </q-card>
+      </div>
+
       <!-- add prompt for flask api -->
       <q-dialog v-model="addprompt" persistent auto-close="false">
         <q-card style="min-width: 350px">
@@ -131,7 +136,6 @@
           </q-card-actions>
         </q-card>
       </q-dialog>
-      <!-- edit prompt for demos -->
       <q-dialog v-model="editprompt" persistent auto-close="false">
         <q-card style="min-width: 350px">
           <q-card-section>
@@ -153,32 +157,32 @@
               />
 
               <!-- <q-input filled
-                                 type="text"
-                                 v-model="pproblems"
-                                 label="Available Problems *"
-                                 lazy-rules
-                                 :rules="[val => val && val.length > 0 || 'Please type something']" />
-                        <q-input filled
-                                 type="text"
-                                 v-model="pactions"
-                                 label="Available Actions *"
-                                 lazy-rules
-                                 :rules="[val => val && val.length > 0 || 'Please type something']" /> -->
+                                   type="text"
+                                   v-model="pproblems"
+                                   label="Available Problems *"
+                                   lazy-rules
+                                   :rules="[val => val && val.length > 0 || 'Please type something']" />
+                          <q-input filled
+                                   type="text"
+                                   v-model="pactions"
+                                   label="Available Actions *"
+                                   lazy-rules
+                                   :rules="[val => val && val.length > 0 || 'Please type something']" /> -->
               <!-- <q-checkbox v-model="bread"
-                                    label="Read" /> -->
+                                      label="Read" /> -->
 
               <!-- <q-toggle v-model="accept"
-                                  label="I accept the license and terms" /> -->
+                                    label="I accept the license and terms" /> -->
 
               <div>
                 <!-- <q-btn label="Submit"
-                                   type="submit"
-                                   color="primary" />
-                            <q-btn label="Reset"
-                                   type="reset"
-                                   color="primary"
-                                   flat
-                                   class="q-ml-sm" /> -->
+                                     type="submit"
+                                     color="primary" />
+                              <q-btn label="Reset"
+                                     type="reset"
+                                     color="primary"
+                                     flat
+                                     class="q-ml-sm" /> -->
               </div>
             </q-form>
           </q-card-section>
@@ -206,6 +210,7 @@
         </q-card>
       </q-dialog>
       <!-- delete prompt flask api -->
+      <!-- edit prompt for flask api -->
       <q-dialog v-model="deleteprompt" persistent auto-close="false">
         <q-card style="min-width: 350px">
           <q-card-section>
@@ -233,140 +238,15 @@
         </q-card>
       </q-dialog>
     </div>
-    <!--  -->
-    <!-- ------------------- Displaying Actions ---------------------- -->
-    <!--  -->
-
-    <div class="q-pa-md q-gutter-sm" style="width: 600px" v-if="displayActions == true">
-      <!-- <DemoActions /> -->
-      <!-- <div class="q-pa-md q-gutter-sm" style="width: 600px"> -->
-      <q-table
-        title="Actions"
-        :columns="actioncolumns"
-        :rows="cr_actions"
-        row-key="action_id"
-        selection="single"
-        v-model:selected="selectedAction"
-      >
-      <!-- <template v-slot:top-right>
-        <q-btn color="" disable label="{{selectedDemo[0].demo_id}}" @click="addRow" />
-      </template> -->
-      <!-- {{ selectedDemo[0].demo_id }} -->
-      </q-table>
-      <!-- <div>
-      {{ cr_actions }}
-      </div> -->
-      <!-- functionality of ADD Button -->
-      <q-btn
-        icon="o_add"
-        color="primary"
-        label="Add"
-        align="center"
-        @click="addactionprompt = true"
-      />
-      <!-- Functionality of Edit Button -->
-      <q-btn
-        color="primary"
-        icon="o_drive_file_rename_outline"
-        label="Edit"
-        @click="editactionprompt = true"
-      />
-
-      <!-- Functionality of Delete Button -->
-      <q-btn
-        color="red"
-        icon="o_delete"
-        label="Delete"
-        align="center"
-        @click="deleteactionprompt = true"
-        type="submit"
-      />
-      <!-- functionality of ADD Button -->
-      <q-btn
-      icon="o_play_arrow"
-        color="green"
-        label="Demonstrate"
-        align="center"
-        @click="demonstrateprompt = true"
-      />
-      <!-- Add Actions -->
-      <q-dialog v-model="addactionprompt" persistent auto-close="false">
-        <q-card style="min-width: 1200px">
-          <q-card-section>
-            <div class="text-h6">Action Data</div>
-          </q-card-section>
-
-          <q-card-section class="q-pt-none">
-            <q-form class="q-gutter-md">
-              <q-input
-                filled
-                v-model="aname"
-                type="text"
-                label="Action Name *"
-                hint="put block"
-                lazy-rules
-                :rules="[
-                  (val) => (val && val.length > 0) || 'Please type something',
-                ]"
-              />
-            </q-form>
-          </q-card-section>
-
-          <q-card-section class="q-pt-none">
-            <q-form class="q-gutter-md">
-              <RosConnection />
-            </q-form>
-          </q-card-section>
-
-          <q-card-section
-            class="q-pt-none"
-            v-if="astore.getparameter().length >= 1"
-          >
-            <q-form class="q-gutter-md">
-              <q-field filled label="Action Parameter" stack-label>
-                <template v-slot:control>
-                  <div class="self-center full-width no-outline" tabindex="0">
-                    {{ astore.getparameter()[0] }}
-                  </div>
-                </template>
-              </q-field>
-            </q-form>
-          </q-card-section>
-
-          <q-card-actions align="right" class="text-primary">
-            <q-btn flat label="Cancel" v-close-popup />
-            <q-btn
-              flat
-              label="OK"
-              :disable="astore.getparameter().length < 1 || aname == ''"
-              type="submit"
-              @click="
-                addAction(parent_id, parent_name, selectedDemo[0].demo_id,selectedDemo[0].demo_name,aname, astore.getparameter()[0]);
-                initactionForm();
-              "
-              v-close-popup
-            />
-            <!-- @click="addProject(pname, pproblems, pactions)" -->
-            <!-- <q-btn flat label="Reset" type="reset" @click="initForm()" /> -->
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-
-      <!-- </div> -->
-    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import GeneralButtons from "src/components/GeneralButtons.vue";
-import DemoActions from "src/components/DemoActions.vue";
 import { useRoute } from "vue-router";
 import { api } from "../boot/axios";
 import { useQuasar } from "quasar";
-import RosConnection from "src/pages/RosConnection.vue";
-import { action_parameter } from "src/stores/action_parameter";
-
 
 const $q = useQuasar();
 
@@ -380,8 +260,6 @@ let editprompt = ref(false);
 
 let demos = ref([]);
 let selectedDemo = ref([]);
-let displayActions = ref(false);
-
 
 const columns = [
   // {
@@ -408,45 +286,6 @@ const columns = [
     required: true,
     align: "center",
     field: (row) => row.demo_actions,
-    format: (val) => `${val}`,
-    sortable: true,
-  },
-  // {
-  //   name: "p_actions",
-  //   label: "Actions",
-  //   required: true,
-  //   align: "center",
-  //   field: (row) => row.p_actions,
-  //   format: (val) => `${val}`,
-  //   sortable: true,
-  // },
-];
-
-const actioncolumns = [
-  // {
-  //     name: 'id',
-  //     label: 'ProjectId',
-  //     // required: true,
-  //     align: 'left',
-  //     field: row => row.id,
-  //     format: val => `${val}`,
-  //     sortable: true
-  // },
-  {
-    name: "action_name",
-    label: "Action Name",
-    required: true,
-    align: "center",
-    field: (row) => row.action_name,
-    format: (val) => `${val}`,
-    sortable: true,
-  },
-  {
-    name: "actions",
-    label: "Actions",
-    required: true,
-    align: "center",
-    field: (row) => row.action_parameters,
     format: (val) => `${val}`,
     sortable: true,
   },
@@ -638,22 +477,14 @@ function editDemo(pt_id, pt_name, dem_id, dem_name) {
       });
     });
 }
-
-// -------------------- for actions section -----------------
-let addactionprompt = ref(false);
-let selectedAction = ref([]);
 let actions = ref([]);
-let cr_actions = ref([]);
-let aname = ref("");
-let astore = action_parameter();
-
 const action_columns = [
   {
     name: "action_name",
     label: "Action Name",
     required: true,
     align: "center",
-    field: (row) => row.cr_actions.action_name,
+    field: (row) => row.action_name,
     format: (val) => `${val}`,
     sortable: true,
   },
@@ -662,21 +493,16 @@ const action_columns = [
     label: "Action Parameters",
     required: true,
     align: "center",
-    field: (row) => row.cr_actions.action_parameters,
+    field: (row) => row.action_parameters,
     format: (val) => `${val}`,
     sortable: true,
   },
 ];
-function getActions(pt_id, pt_name, pd_id) {
-  const payload = {
-    project_id: pt_id,
-    project_name: pt_name,
-    demo_id: pd_id,
-  };
+function getActions() {
   api
-    .post("/getactions",payload)
+    .get("/actions")
     .then((response) => {
-      cr_actions.value = response.data.actions;
+      actions.value = response.data.actions;
     })
     .catch(() => {
       $q.notify({
@@ -686,50 +512,9 @@ function getActions(pt_id, pt_name, pd_id) {
         icon: "report_problem",
       });
     });
-}
-
-function addAction(pt_id, pt_name,pd_id, pd_name, aname, aparam,) {
-  const payload = {
-    project_id: pt_id,
-    project_name: pt_name,
-    demo_id: pd_id,
-    demo_name: pd_name,
-    action_name: aname,
-    action_parameters: aparam,
-    // p_problems: 0,
-    // p_actions: 0,
-  };
-  api
-    .post("/addactions", payload)
-    .then((response) => {
-      getDemos(pt_id, pt_name);
-      getActions(pt_id, pt_name, pd_id);
-      astore.removeparameter();
-      // books.value = response.data.books
-      $q.notify({
-        color: "green",
-        position: "top",
-        message: "Action Created",
-        icon: "o_done",
-        timeout: 500,
-      });
-    })
-    .catch(() => {
-      $q.notify({
-        color: "negative",
-        position: "top",
-        message: "Loading failed",
-        icon: "report_problem",
-        timeout: 500,
-      });
-    });
-}
-function initactionForm() {
-  aname.value = "";
-  aparam.value = "";
-  // pactions.value = "";
 }
 
 getProjectData(parent_id);
 // getDemos(parent_id,parent_name)
+getActions();
 </script>

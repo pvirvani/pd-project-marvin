@@ -33,12 +33,20 @@ if os.path.exists('./archive.json'):
 else:
         Archive=[]
 
-#  for global actions
-if os.path.exists('./actions.json'):
-        with open('actions.json', 'r') as faction:
-            Actions = json.load(faction)
-else:
-        Actions=[]
+
+# ######### if you need global actions ###########
+# 
+# But currently we will not be using global actions
+# as each demo of each project's will have its own
+# actions
+# 
+# ################################################
+# #  for global actions
+# if os.path.exists('./actions.json'):
+#         with open('actions.json', 'r') as faction:
+#             Actions = json.load(faction)
+# else:
+#         Actions=[]
 
 
 # ######################
@@ -201,6 +209,7 @@ def addDemo():
             'parent_name': proj_parent_name,
             'demo_id': demo_id,
             'demo_name': post_data.get('d_name'),
+            'actions':[],
             'demo_actions': 0
         })
         with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
@@ -212,6 +221,7 @@ def addDemo():
             'parent_name': proj_parent_name,
             'demo_id': demo_id,
             'demo_name': post_data.get('d_name'),
+            'actions':[],
             'demo_actions': 0
         })
         with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
@@ -254,6 +264,7 @@ def copyDemo():
         'parent_name': proj_parent_name,
         'demo_id': demo_id,
         'demo_name': old_demo_name+'-copy',
+        'actions': [],
         'demo_actions': 0
     })
     with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
@@ -286,27 +297,139 @@ def updateDemo():
     return jsonify(response_object)
 
 ######################################## For Actions ########################
-@app.route('/actions', methods=['GET', 'POST'])
-def all_actions():
-    
-    response_object = {'status': 'success'}
-    if request.method == 'POST':
-        post_data = request.get_json()
-        action_id = uuid.uuid4().hex
-        Actions.append({
-            'action_id': action_id,
-            'action_name': post_data.get('action_name'),
-            'action_parameters':post_data.get('action_parameters')
-        })
-        with open('actions.json', 'w') as fp:
-            json.dump(Actions, fp)
-        # os.mkdir(os.path.join('projects',post_data.get('p_name')+'_'+action_id))
-        response_object['message'] = 'Action Created'
-    else:
-        response_object['actions'] = Actions
 
+# # actions are properties of a demo
+# @app.route('/addaction', methods=['GET', 'POST'])
+# def addAction():
+#     response_object = {'status': 'success'}
+#     post_data = request.get_json()
+#     proj_parent_id = post_data.get('parent_id')
+#     proj_parent_name = post_data.get('parent_name')
+#     demo_parent_id = post_data.get('demo_id')
+#     demo_parent_name =post_data.get('demo_name')
+#     action_id = uuid.uuid4().hex
+#     if os.path.exists(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json')):
+#         with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+#             demos = json.load(dfile)
+#         for demo in demos:
+#             for k, v in demo.items():
+#                 if v == demo_parent_id:
+#                     demo.append({
+#                         'actions':{
+#                         'action_id': action_id,
+#                         'action_name':post_data.get(action_name),
+#                         'action_parameters':post_data.get(action_parameters)
+#                         },
+#                         # 'demo_actions': demo.actions.length()+1
+#                     })
+#                     with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
+#                         json.dump(demos, fp)
+             
+#     # else:
+#     #     demos.append({
+#     #         'parent_id': proj_parent_id,
+#     #         'parent_name': proj_parent_name,
+#     #         'demo_id': demo_parent_id,
+#     #         'demo_name': post_data.get('d_name'),
+#     #         'demo_actions': 0
+#     #     })
+#         with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
+#             json.dump(demos, fp)
+
+#     response_object['demos'] = demos
+#     return jsonify(response_object)
+
+
+
+
+# @app.route('/actions', methods=['GET', 'POST'])
+# def all_actions():
     
+#     response_object = {'status': 'success'}
+#     if request.method == 'POST':
+#         post_data = request.get_json()
+#         action_id = uuid.uuid4().hex
+#         Actions.append({
+#             'action_id': action_id,
+#             'action_name': post_data.get('action_name'),
+#             'action_parameters':post_data.get('action_parameters')
+#         })
+#         with open('actions.json', 'w') as fp:
+#             json.dump(Actions, fp)
+#         # os.mkdir(os.path.join('projects',post_data.get('p_name')+'_'+action_id))
+#         response_object['message'] = 'Action Created'
+#     else:
+#         response_object['actions'] = Actions
+
+#     return jsonify(response_object)
+
+# @app.route('/deleteaction', methods=['GET', 'POST'])
+# def deleteAction():
+#     response_object = {'status': 'success'}
+#     post_data = request.get_json()
+#     proj_parent_id = post_data.get('parent_id')
+#     proj_parent_name = post_data.get('parent_name')
+#     action_id = post_data.get('action_id')
+    
+#     with open('actions.json','r') as afile:
+#         actions = json.load(afile)
+#     for action in actions:
+#         for k, v in action.items():
+#             if v == action_id:
+#                 actions.remove(action)
+#     with open('actions.json','w') as fp:
+#         json.dump(actions, fp)
+#     response_object['actions'] = actions
+#     return jsonify(response_object)
+
+
+# -------------- adding action in nested dictionary of demos
+@app.route('/getactions', methods=['GET','POST'])
+def get_actions():
+    demos=[]
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('project_id')
+    proj_parent_name = post_data.get('project_name')
+    demo_parent_id = post_data.get('demo_id')
+    if os.path.exists(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json')):
+        with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+            demos = json.load(dfile)
+        for demo in demos:
+            for k, v in demo.items():
+                if v == demo_parent_id:
+                    response_object['actions']=demo['actions']
+                    return jsonify(response_object)
+    # return jsonify(response_object)
+
+@app.route('/addactions', methods=['POST'])
+def add_actions():
+    demos=[]
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('project_id')
+    proj_parent_name = post_data.get('project_name')
+    demo_parent_id = post_data.get('demo_id')
+    demo_parent_name = post_data.get('demo_name')
+    action_id = uuid.uuid4().hex
+    if os.path.exists(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json')):
+        with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+            demos = json.load(dfile)
+        for demo in demos:
+            for k,v in demo.items():
+                if v == demo_parent_id:
+                    demo['actions'].append({
+                        'action_id':action_id,
+                        'action_name':post_data.get('action_name'),
+                        'action_parameters':post_data.get('action_parameters')
+                    })
+                    demo['demo_actions'] = demo['demo_actions']+1
+    with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
+        json.dump(demos, fp)
+    # os.mkdir(os.path.join('projects',post_data.get('p_name')+'_'+action_id))
+    response_object['message'] = 'Action Created'
     return jsonify(response_object)
+
 
 if __name__ == '__main__':
     app.run()
