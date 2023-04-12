@@ -20,6 +20,7 @@
         v-model:selected="selectedDemo"
       >
       </q-table>
+
       <!-- functionality of ADD Button -->
       <q-btn
         icon="o_add"
@@ -237,7 +238,8 @@
     <!-- ------------------- Displaying Actions ---------------------- -->
     <!--  -->
 
-    <div class="q-pa-md q-gutter-sm" style="width: 600px" v-if="displayActions == true">
+ 
+    <div class="q-pa-md q-gutter-sm" style="width: 600px" v-if="(displayActions == true)">
       <!-- <DemoActions /> -->
       <!-- <div class="q-pa-md q-gutter-sm" style="width: 600px"> -->
       <q-table
@@ -381,6 +383,10 @@ let editprompt = ref(false);
 let demos = ref([]);
 let selectedDemo = ref([]);
 let displayActions = ref(false);
+
+
+
+
 
 
 const columns = [
@@ -642,7 +648,7 @@ function editDemo(pt_id, pt_name, dem_id, dem_name) {
 // -------------------- for actions section -----------------
 let addactionprompt = ref(false);
 let selectedAction = ref([]);
-let actions = ref([]);
+// let actions = ref([]);
 let cr_actions = ref([]);
 let aname = ref("");
 let astore = action_parameter();
@@ -732,4 +738,5 @@ function initactionForm() {
 
 getProjectData(parent_id);
 // getDemos(parent_id,parent_name)
+
 </script>

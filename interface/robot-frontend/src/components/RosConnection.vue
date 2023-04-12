@@ -37,10 +37,15 @@ import { action_parameter } from "src/stores/action_parameter";
 // // -----------------------------
 // const ws_address = 'ws://192.168.125.50:9090';
 
+// // -----------------------------
+// // Connection for Jetson Xavier //
+// // -----------------------------
+const ws_address = 'ws://192.168.125.52:9090';
+
 // // -----------------
 // // Local Connection With PC
 // // -----------------
-const ws_address = 'ws://localhost:9090'
+// const ws_address = 'ws://localhost:9090'
 // const ws_address = 'ws://129.88.67.254:9090';
 // const ws_address = 'ws://192.168.125.10:9090';
 // const ws_address = 'ws://193.54.184.6:9090';

@@ -1,6 +1,14 @@
 <template>
 <div class=" q-pa-md q-gutter-y-md column items-start flex"
   style="float: left; background-color:antiquewhite">
+  <q-btn to="/"
+      color="primary"
+      push
+      no-caps
+      label="Projects"
+      icon="o_home"
+      size='40px'
+      style="width:200px;height: 80px; font-size:20px" />
 <q-btn to="/demo"
       color="primary"
       push
