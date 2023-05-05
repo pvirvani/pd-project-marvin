@@ -55,8 +55,7 @@ let ldata = ref("")
 const astore = action_parameter()
 const $q = useQuasar()
 let rosEvent = ref(false)
-let position_validator = ref(false)
-let lego_data = ref([])
+// let position_validator = ref(false)
 let connected = ref(false);
 const ros = new window.ROSLIB.Ros({
   url: ws_address,
@@ -113,34 +112,36 @@ visiondict.subscribe(function (message) {
 
 // ###################################
 // 
-//      Subscribing to lego_data_pub topic
+//      Subscribing to lego_data topic
 // 
 // ###################################
-const legoros = new window.ROSLIB.Topic({
+const legomoved = new window.ROSLIB.Topic({
   ros: ros,
   name: '/lego_data',
   messageType: 'std_msgs/String'
 });
 
-legoros.subscribe(function (message) {
-  console.log('Receiving datafrom position publisher on ' + legoros.name + ':' + message.data);
+legomoved.subscribe(function (message) {
+  console.log('Receiving datafrom position publisher on ' + legomoved.name + ':' + message.data);
   ldata.value = message.data
-  legoros.unsubscribe();
+  legomoved.unsubscribe();
 });
 
-function subscriber(){
-  legoros.subscribe(function (message) {
-  console.log('Receiving datafrom position publisher on ' + legoros.name + ':' + message.data);
-  ldata.value = message.data
-  legoros.unsubscribe();
-});
-}
+// function subscriber(){
+//   legomoved.subscribe(function (message) {
+//   console.log('Receiving datafrom position publisher on ' + legomoved.name + ':' + message.data);
+//   ldata.value = message.data
+//   legomoved.unsubscribe();
+//   });
+// }
+
 
 function showNotif() {
+        // subscriber();
         $q.notify({
           timeout: 0,
           progress: true,
-          message: 'Lego block has been placed at '+ldata.value+' . Do you want to validate the parameters?',
+          message: 'Lego block has moved as '+ldata.value+'. Do you want to validate the parameters?',
           color: 'none',
           multiLine: true,
           avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',

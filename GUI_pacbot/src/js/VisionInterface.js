@@ -104,7 +104,7 @@ export default class VisionInterface {
     updateLegos = () => {
         // create a listener to retrieve world model from camera
         this.iface.subscriber('/lego_map', 'std_msgs/String', this.rosIface);
-        this.iface.subscriber('/assembly_errors', 'std_msgs/String', this.errsIface);
+        // this.iface.subscriber('/assembly_errors', 'std_msgs/String', this.errsIface);
         this.iface.subscriber('/problem_solved', 'std_msgs/Bool', this.finiIface);
     }
 }

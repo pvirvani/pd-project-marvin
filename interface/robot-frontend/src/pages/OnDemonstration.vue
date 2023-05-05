@@ -29,38 +29,15 @@
         @click="addprompt = true"
       />
 
-      <!-- functionality of Open Button -->
-      <!-- <q-btn
-      :to="{name: 'demo',
-            params:{ id: global_project_id}}"
-      icon="o_file_open"
-      color="primary"
-    /> -->
-      <!-- <div class="q-pa-md q-gutter-md" v-if="displayActions">
-    <q-card class="my-card" style="width: 700px">
-      <q-card-section>
-        <div class="text-h6">Recorded Actions</div>
-        <div class="text-subtitle2"></div>
-      </q-card-section>
-      <q-separator/>
-      <q-card-section>
-        <q-table
-          title="Actions"
-          :columns="action_columns"
-          :rows="actions"
-          row-key="action_id"
-          selection="single"
-          v-model:selected="selectedAction">
-      </q-table>
-      </q-card-section>
-    </q-card> 
-    </div> -->
       <!-- Fucntionality of Open Button -->
       <q-btn
         icon="o_file_open"
         color="primary"
         label="Open"
-        @click="displayActions = true;getActions(parent_id, parent_name, selectedDemo[0].demo_id);"
+        @click="
+          displayActions = true;
+          getActions(parent_id, parent_name, selectedDemo[0].demo_id);
+        "
       />
 
       <!-- Functionality of Clone Button -->
@@ -92,6 +69,7 @@
         @click="deleteprompt = true"
         type="submit"
       />
+
       <!-- add prompt for flask api -->
       <q-dialog v-model="addprompt" persistent auto-close="false">
         <q-card style="min-width: 350px">
@@ -238,8 +216,11 @@
     <!-- ------------------- Displaying Actions ---------------------- -->
     <!--  -->
 
- 
-    <div class="q-pa-md q-gutter-sm" style="width: 600px" v-if="(displayActions == true)">
+    <div
+      class="q-pa-md q-gutter-sm"
+      style="width: 600px"
+      v-if="displayActions == true"
+    >
       <!-- <DemoActions /> -->
       <!-- <div class="q-pa-md q-gutter-sm" style="width: 600px"> -->
       <q-table
@@ -250,10 +231,10 @@
         selection="single"
         v-model:selected="selectedAction"
       >
-      <!-- <template v-slot:top-right>
+        <!-- <template v-slot:top-right>
         <q-btn color="" disable label="{{selectedDemo[0].demo_id}}" @click="addRow" />
       </template> -->
-      <!-- {{ selectedDemo[0].demo_id }} -->
+        <!-- {{ selectedDemo[0].demo_id }} -->
       </q-table>
       <!-- <div>
       {{ cr_actions }}
@@ -285,7 +266,7 @@
       />
       <!-- functionality of ADD Button -->
       <q-btn
-      icon="o_play_arrow"
+        icon="o_play_arrow"
         color="green"
         label="Demonstrate"
         align="center"
@@ -343,12 +324,130 @@
               :disable="astore.getparameter().length < 1 || aname == ''"
               type="submit"
               @click="
-                addAction(parent_id, parent_name, selectedDemo[0].demo_id,selectedDemo[0].demo_name,aname, astore.getparameter()[0]);
+                addAction(
+                  parent_id,
+                  parent_name,
+                  selectedDemo[0].demo_id,
+                  selectedDemo[0].demo_name,
+                  aname,
+                  astore.getparameter()[0]
+                );
                 initactionForm();
               "
               v-close-popup
             />
             <!-- @click="addProject(pname, pproblems, pactions)" -->
+            <!-- <q-btn flat label="Reset" type="reset" @click="initForm()" /> -->
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+
+      <!-- Delete Action -->
+
+      <!-- delete prompt flask api -->
+      <q-dialog v-model="deleteactionprompt" persistent auto-close="false">
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">
+              Do you want to delete action: {{ selectedAction[0].action_name }}
+            </div>
+            <!-- <div> {{}}</div> -->
+          </q-card-section>
+          <q-card-actions
+            align="right"
+            class="text-primary"
+            label="Do you want to delete the Action"
+          >
+            <q-btn flat label="Cancel" v-close-popup />
+            <q-btn
+              flat
+              label="Delete"
+              v-close-popup
+              type="submit"
+              @click="
+                deleteAction(
+                  parent_id,
+                  parent_name,
+                  selectedDemo[0].demo_id,
+                  selectedAction[0].action_id
+                )
+              "
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+
+      <!-- edit action -->
+      <q-dialog v-model="editactionprompt" persistent auto-close="false">
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">Action Data</div>
+          </q-card-section>
+
+          <q-card-section class="q-pt-none">
+            <q-form class="q-gutter-md">
+              <q-input
+                filled
+                v-model="aname"
+                type="text"
+                label="Action Name *"
+                hint="action1"
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Please type something',
+                ]"
+              />
+
+              <!-- <q-input filled
+                                 type="text"
+                                 v-model="pproblems"
+                                 label="Available Problems *"
+                                 lazy-rules
+                                 :rules="[val => val && val.length > 0 || 'Please type something']" />
+                        <q-input filled
+                                 type="text"
+                                 v-model="pactions"
+                                 label="Available Actions *"
+                                 lazy-rules
+                                 :rules="[val => val && val.length > 0 || 'Please type something']" /> -->
+              <!-- <q-checkbox v-model="bread"
+                                    label="Read" /> -->
+
+              <!-- <q-toggle v-model="accept"
+                                  label="I accept the license and terms" /> -->
+
+              <div>
+                <!-- <q-btn label="Submit"
+                                   type="submit"
+                                   color="primary" />
+                            <q-btn label="Reset"
+                                   type="reset"
+                                   color="primary"
+                                   flat
+                                   class="q-ml-sm" /> -->
+              </div>
+            </q-form>
+          </q-card-section>
+
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat label="Cancel" v-close-popup />
+            <q-btn
+              flat
+              label="Update"
+              v-close-popup
+              type="submit"
+              @click="
+                editAction(
+                  parent_id,
+                  parent_name,
+                  selectedDemo[0].demo_id,
+                  selectedAction[0].action_id,
+                  aname
+                );
+                initForm();
+              "
+            />
+            <!-- @click="editProject(pname, pproblems, pactions, selectedProject[0].p_id)" -->
             <!-- <q-btn flat label="Reset" type="reset" @click="initForm()" /> -->
           </q-card-actions>
         </q-card>
@@ -369,7 +468,6 @@ import { useQuasar } from "quasar";
 import RosConnection from "src/pages/RosConnection.vue";
 import { action_parameter } from "src/stores/action_parameter";
 
-
 const $q = useQuasar();
 
 const route = useRoute();
@@ -383,11 +481,6 @@ let editprompt = ref(false);
 let demos = ref([]);
 let selectedDemo = ref([]);
 let displayActions = ref(false);
-
-
-
-
-
 
 const columns = [
   // {
@@ -647,6 +740,8 @@ function editDemo(pt_id, pt_name, dem_id, dem_name) {
 
 // -------------------- for actions section -----------------
 let addactionprompt = ref(false);
+let deleteactionprompt = ref(false);
+let editactionprompt = ref(false);
 let selectedAction = ref([]);
 // let actions = ref([]);
 let cr_actions = ref([]);
@@ -680,7 +775,7 @@ function getActions(pt_id, pt_name, pd_id) {
     demo_id: pd_id,
   };
   api
-    .post("/getactions",payload)
+    .post("/getactions", payload)
     .then((response) => {
       cr_actions.value = response.data.actions;
     })
@@ -694,7 +789,7 @@ function getActions(pt_id, pt_name, pd_id) {
     });
 }
 
-function addAction(pt_id, pt_name,pd_id, pd_name, aname, aparam,) {
+function addAction(pt_id, pt_name, pd_id, pd_name, aname, aparam) {
   const payload = {
     project_id: pt_id,
     project_name: pt_name,
@@ -730,6 +825,73 @@ function addAction(pt_id, pt_name,pd_id, pd_name, aname, aparam,) {
       });
     });
 }
+
+function deleteAction(pt_id, pt_name, pd_id, act_id) {
+  const payload = {
+    parent_id: pt_id,
+    parent_name: pt_name,
+    demo_id: pd_id,
+    action_id: act_id,
+  };
+  api
+    .post("/deleteaction", payload)
+    .then((response) => {
+      // demos.value = response.data.demos;
+      getActions(pt_id, pt_name, pd_id);
+      // books.value = response.data.books
+      $q.notify({
+        color: "green",
+        position: "top",
+        message: "Action Deleted",
+        icon: "o_done",
+        timeout: 500,
+      });
+    })
+    .catch(() => {
+      $q.notify({
+        color: "negative",
+        position: "top",
+        message: "Failed to Delete Action",
+        icon: "report_problem",
+        timeout: 500,
+      });
+    });
+}
+
+function editAction(pt_id, pt_name, pd_id, act_id, act_name) {
+  const payload = {
+    parent_id: pt_id,
+    parent_name: pt_name,
+    demo_id: pd_id,
+
+    action_id: act_id,
+    action_name: act_name,
+  };
+  api
+    .post("/updateaction", payload)
+    .then((response) => {
+      // demos.value = response.data.demos;
+      getActions(pt_id, pt_name, pd_id);
+      // books.value = response.data.books
+      $q.notify({
+        color: "green",
+        position: "top",
+        message: "Action Updated",
+        icon: "o_done",
+        timeout: 500,
+      });
+    })
+    .catch(() => {
+      $q.notify({
+        color: "negative",
+        position: "top",
+        message: "Failed to update action",
+        icon: "report_problem",
+        timeout: 500,
+      });
+    });
+}
+
 function initactionForm() {
   aname.value = "";
   aparam.value = "";
@@ -738,5 +900,5 @@ function initactionForm() {
 
 getProjectData(parent_id);
 // getDemos(parent_id,parent_name)
-
 </script>
+

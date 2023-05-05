@@ -158,6 +158,7 @@ include_directories(
 catkin_install_python(PROGRAMS
   scripts/position_publisher.py
   scripts/position_receiver.py
+  scripts/position_publisher_new.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

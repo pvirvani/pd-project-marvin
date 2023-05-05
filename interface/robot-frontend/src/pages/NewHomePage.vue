@@ -26,6 +26,7 @@
       icon="o_file_open"
       color="primary"
       label="Open"
+      @click="setprojectid(selectedProject[0].p_id,selectedProject[0].p_name)"
     />
 
     <!-- Functionality of Clone Button -->
@@ -269,6 +270,9 @@
 import { ref } from "vue";
 import { api } from "../boot/axios";
 import { useQuasar } from "quasar";
+import { global_pid } from "src/stores/global_pid";
+
+let gid_store = global_pid();
 
 let addprompt = ref(false);
 let editprompt = ref(false);
@@ -465,6 +469,10 @@ function initForm() {
   pname.value = "";
   pproblems.value = "";
   pactions.value = "";
+}
+
+function setprojectid(gid,gname) {
+  gid_store.setgid(gid,gname)
 }
 
 let global_project_id = ref("");

@@ -1,0 +1,2 @@
+[[{'e(pick.0)|s(place.0)|s(stack.0)': 0, 'e(stack.0)|e(place.0)|s(pick.0)': 1}], [{'s(place.1)': 0, 'e(stack.2)': 1, 's(pick.1)': 2, 'e(pick.1)|s(stack.1)': 3, 'e(stack.1)|e(place.1)|s(stack.2)': 4}]]
+Class names['zero', 'green_cube_p0201']

@@ -113,9 +113,11 @@ const routes = [
     ],
   },
   {
-    path: "/actions",
+    path: "/problems/",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/OnActions.vue") }],
+    children: [
+      { path: ":id", name: "problems", props: true, component: () => import("pages/OnProblems.vue") },
+    ],
   },
   {
     path: "/roscon",
@@ -134,6 +136,11 @@ const routes = [
   },
   {
     path: "/problems",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("src/pages/OnProblems.vue") }],
+  },
+  {
+    path: "/oldproblems",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("src/old_pages/OnProblems.vue") }],
   },

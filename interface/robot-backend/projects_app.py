@@ -399,7 +399,7 @@ def get_actions():
             for k, v in demo.items():
                 if v == demo_parent_id:
                     response_object['actions']=demo['actions']
-                    return jsonify(response_object)
+    return jsonify(response_object)
     # return jsonify(response_object)
 
 @app.route('/addactions', methods=['POST'])
@@ -429,6 +429,58 @@ def add_actions():
     # os.mkdir(os.path.join('projects',post_data.get('p_name')+'_'+action_id))
     response_object['message'] = 'Action Created'
     return jsonify(response_object)
+
+@app.route('/deleteaction', methods=['GET', 'POST'])
+def deleteAction():
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('parent_id')
+    proj_parent_name = post_data.get('parent_name')
+    demo_id = post_data.get('demo_id')
+    action_id = post_data.get('action_id')
+    
+    with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+        demos = json.load(dfile)
+    for demo in demos:
+        for k, v in demo.items():
+            if v == demo_id:
+                actions = demo.get("actions")
+                for action in actions:
+                    if action.get("action_id") == action_id:
+                        actions.remove(action)
+    with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
+        json.dump(demos, fp)
+    response_object['demos'] = demos
+    return jsonify(response_object)
+
+
+@app.route('/updateaction', methods=['GET', 'POST'])
+def updateAction():
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('parent_id')
+    proj_parent_name = post_data.get('parent_name')
+    demo_id = post_data.get('demo_id')
+    action_id = post_data.get('action_id')
+    new_action_name = post_data.get('action_name')
+    with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+        demos = json.load(dfile)
+    for demo in demos:
+        for k, v in demo.items():
+            if v == demo_id:
+                actions = demo.get("actions")
+                for action in actions:
+                    if action.get("action_id") == action_id:
+                        action["action_name"]= new_action_name
+                        # actions.remove(action)
+    with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
+        json.dump(demos, fp)
+            
+
+    response_object['demos'] = demos
+    return jsonify(response_object)
+
+############################### Problems APIs#############################################################
 
 
 if __name__ == '__main__':

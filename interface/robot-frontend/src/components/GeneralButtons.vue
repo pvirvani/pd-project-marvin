@@ -9,7 +9,17 @@
       icon="o_home"
       size='40px'
       style="width:200px;height: 80px; font-size:20px" />
-<q-btn to="/demo"
+<!-- <q-btn to="/demo"
+      color="primary"
+      push
+      no-caps
+      label="Demonstration"
+      icon="o_precision_manufacturing"
+      size='40px'
+      style="width:200px;height: 80px; font-size:20px" /> -->
+      <!-- :to="{ name: 'demo', params: { id: global_project_id } } -->
+<q-btn
+      :to="{ name: 'demo', params: { id: gid } }"
       color="primary"
       push
       no-caps
@@ -17,7 +27,6 @@
       icon="o_precision_manufacturing"
       size='40px'
       style="width:200px;height: 80px; font-size:20px" />
-
 <!-- <q-btn to="/actions"
       color="primary"
       push
@@ -26,7 +35,8 @@
       icon="o_question_mark"
       size='40px'
       style="width:200px;height: 80px; font-size:20px" /> -->
-<q-btn to="/problems"
+<q-btn
+      :to="{ name: 'problems', params: { id: gid } }"
       color="primary"
       push
       no-caps
@@ -63,4 +73,8 @@
 </div>
 </template>
 <script setup>
+import { global_pid } from "src/stores/global_pid";
+let gid_store = global_pid();
+let gid = gid_store.getgid()
+
 </script>
