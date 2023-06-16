@@ -1,0 +1,54 @@
+#status{
+    text-align: center;
+    width: 25%;
+    border: solid 5px;
+    border-color: rgb(46, 55, 80);
+    background-color:  #474444;
+    display: block;
+    margin-right: 20px;
+  }
+
+  #pick{
+    border: solid 1px;
+    border-color: black;
+    background-color: gray;
+    border-radius: 15px;
+  }
+
+  #pick-enabled{
+    border: solid 5px;
+    border-color: rgb(155, 221, 79);
+    background-color: rgb(101, 116, 47);
+    border-radius: 15px;
+    color: orange;
+  }
+
+  #place{
+    border: solid 1px;
+    border-color: black;
+    background-color: gray;
+    border-radius: 15px;
+  }
+
+  #place-enabled{
+    border: solid 5px;
+    border-color: rgb(155, 221, 79);
+    background-color: rgb(101, 116, 47);
+    border-radius: 15px;
+    color: orange;
+  }
+
+  #rotate{
+    border: solid 1px;
+    border-color: black;
+    background-color: gray;
+    border-radius: 15px;
+  }
+
+  #rotate-enabled{
+    border: solid 5px;
+    border-color: rgb(155, 221, 79);
+    background-color: rgb(101, 116, 47);
+    border-radius: 15px;
+    color: orange;
+  }

@@ -10,6 +10,7 @@
     <div>
       <GeneralButtons />
     </div>
+    <div class="q-pa-md q-gutter-sm column">
     <div class="q-pa-md q-gutter-sm" style="width: 600px">
       <q-table
         title="Demonstrations"
@@ -265,12 +266,23 @@
         type="submit"
       />
       <!-- functionality of ADD Button -->
-      <q-btn
+      <!-- <q-btn
         icon="o_play_arrow"
         color="green"
         label="Demonstrate"
         align="center"
         @click="demonstrateprompt = true"
+      /> -->
+
+      <q-btn
+        icon="o_format_list_numbered"
+        color="green"
+        label="Generate Sequence"
+        align="center"
+        @click="
+          generateSequence(parent_id, parent_name, selectedDemo[0].demo_id);
+          showSequence=true
+        "
       />
       <!-- Add Actions -->
       <q-dialog v-model="addactionprompt" persistent auto-close="false">
@@ -455,6 +467,28 @@
 
       <!-- </div> -->
     </div>
+    </div>
+    <div
+      class="q-pa-md q-gutter-sm"
+      style="width: 600px"
+      v-if="showSequence == true"
+    >
+    <div class="q-pa-md row items-start q-gutter-md">
+    <q-card class="my-card bg-secondary text-white">
+      <q-card-section>
+        <div class="text-h6">Inferred Action Sequence</div>
+      </q-card-section>
+      <q-separator dark />
+      <q-card-section>
+        <ul>
+        <li v-for="action in ac_sequence" :key="action">{{ action }}</li>
+      </ul>
+      </q-card-section>
+      </q-card>
+      </div>
+
+      
+    </div>
   </div>
 </template>
 
@@ -481,6 +515,7 @@ let editprompt = ref(false);
 let demos = ref([]);
 let selectedDemo = ref([]);
 let displayActions = ref(false);
+let showSequence = ref(false)
 
 const columns = [
   // {
@@ -540,6 +575,7 @@ const actioncolumns = [
     format: (val) => `${val}`,
     sortable: true,
   },
+
   {
     name: "actions",
     label: "Actions",
@@ -747,6 +783,8 @@ let selectedAction = ref([]);
 let cr_actions = ref([]);
 let aname = ref("");
 let astore = action_parameter();
+let ac_sequence = ref([])
+let action_sequence = ref([])
 
 const action_columns = [
   {
@@ -778,6 +816,27 @@ function getActions(pt_id, pt_name, pd_id) {
     .post("/getactions", payload)
     .then((response) => {
       cr_actions.value = response.data.actions;
+    })
+    .catch(() => {
+      $q.notify({
+        color: "negative",
+        position: "top",
+        message: "Loading failed",
+        icon: "report_problem",
+      });
+    });
+}
+
+function getSequence(pt_id, pt_name, pd_id) {
+  const payload = {
+    project_id: pt_id,
+    project_name: pt_name,
+    demo_id: pd_id,
+  };
+  api
+    .post("/getsequence", payload)
+    .then((response) => {
+      ac_sequence.value = response.data.action_sequence;
     })
     .catch(() => {
       $q.notify({
@@ -892,6 +951,39 @@ function editAction(pt_id, pt_name, pd_id, act_id, act_name) {
     });
 }
 
+function generateSequence(pt_id, pt_name, pd_id) {
+  const payload = {
+    parent_id: pt_id,
+    parent_name: pt_name,
+    demo_id: pd_id,
+  };
+  api
+    .post("/generatesequence", payload)
+    .then((response) => {
+      getSequence(pt_id, pt_name, pd_id)
+      $q.notify({
+        color: "green",
+        position: "top",
+        message: "Sequence Generated",
+        icon: "o_done",
+        timeout: 500,
+      });
+    })
+    .catch(() => {
+      $q.notify({
+        color: "negative",
+        position: "top",
+        message: "Failed to Generate Sequence",
+        icon: "report_problem",
+        timeout: 500,
+      });
+    });
+}
+
+function initForm() {
+  d_name.value = "";
+}
+
 function initactionForm() {
   aname.value = "";
   aparam.value = "";
@@ -901,4 +993,3 @@ function initactionForm() {
 getProjectData(parent_id);
 // getDemos(parent_id,parent_name)
 </script>
-

@@ -23,7 +23,7 @@
       />
 
       <!-- add prompt for flask api -->
-      <q-dialog v-model="addprompt" persistent auto-close="false">
+      <q-dialog v-model="addprompt" persistent auto-close="false"> 
         <q-card style="min-width: 1200px">
           <q-card-section>
             <div class="text-h6">Action Data</div>

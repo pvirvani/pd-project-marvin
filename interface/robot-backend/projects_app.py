@@ -63,6 +63,99 @@ else:
 #         'status': 'success',
 #         'projects': PROJECTS
 #     })
+
+""" def generate_sequence(actions):
+    output = []
+    for action in actions:
+        action_params = json.loads(action['action_parameters'])
+        color = action_params['color']
+        lego = action_params['lego']
+        lego_id = action_params['id']
+        pickedfrom = action_params['pickedfrom']
+        placedat = action_params['placedat']
+        
+        
+        # Process pickedfrom
+        pickedfrom_str = ':'.join(str(item) for item in pickedfrom)
+        pickedfrom_str = pickedfrom_str.replace("_", "")
+
+        # Process placedat
+        placedat_str = ':'.join(str(item) for item in placedat)
+        placedat_str = placedat_str.replace("_", "")
+        # print(pickedfrom_str,placedat_str)
+
+        # Generate pick action
+        pick_action = f"pick({color}_{lego}_{lego_id}_{pickedfrom_str})"
+        output.append(pick_action)
+
+        # Generate place or stack action
+        if len(placedat) == 4:
+            x = int(placedat[2])
+            if x > 1:
+                stack_action = f"stack({color}_{lego}_{lego_id}_{pickedfrom_str},{color}_{lego}_{lego_id}_{placedat_str})"
+                output.append(stack_action)
+            else:
+                place_action = f"place({color}_{lego}_{lego_id}_{placedat_str})"
+                output.append(place_action)
+        elif len(placedat) == 2:
+            x = int(placedat[1])
+            if x > 1:
+                stack_action = f"stack({color}_{lego}_{lego_id}_{pickedfrom_str},{color}_{lego}_{lego_id}_{placedat_str})"
+                output.append(stack_action)
+            else:
+                place_action = f"place({color}_{lego}_{lego_id}_{placedat_str})"
+                output.append(place_action)
+    
+    #return '\n'.join(output)
+    return output """
+
+def generate_sequence(actions):
+    output = []
+    for action in actions:
+        action_params = json.loads(action['action_parameters'])
+        color = action_params['color']
+        lego = action_params['lego']
+        lego_id = action_params['id']
+        pickedfrom = action_params['pickedfrom']
+        placedat = action_params['placedat']
+        
+        
+        # Process pickedfrom
+        pickedfrom_str = ':'.join(str(item) for item in pickedfrom)
+        pickedfrom_str = pickedfrom_str.replace("_", "")
+
+        # Process placedat
+        placedat_str = ':'.join(str(item) for item in placedat)
+        placedat_str = placedat_str.replace("_", "")
+        # print(pickedfrom_str,placedat_str)
+
+        # Generate pick action
+        pick_action = f"pick({color}_{lego}_{lego_id}_{pickedfrom_str})"
+        output.append(pick_action)
+
+        # Generate place or stack action
+        if len(placedat) == 4:
+            x = int(placedat[2])
+            if x > 1:
+                stack_action = f"stack({color}_{lego}_{lego_id}_{pickedfrom_str},{color}_{lego}_{lego_id}_{placedat_str})"
+                output.append(stack_action)
+            else:
+                place_action = f"place({color}_{lego}_{lego_id}_{placedat_str})"
+                output.append(place_action)
+        elif len(placedat) == 2:
+            x = int(placedat[1])
+            if x > 1:
+                stack_action = f"stack({color}_{lego}_{lego_id}_{pickedfrom_str},{color}_{lego}_{lego_id}_{placedat_str})"
+                output.append(stack_action)
+            else:
+                place_action = f"place({color}_{lego}_{lego_id}_{placedat_str})"
+                output.append(place_action)
+    
+    # return '\n'.join(output)
+    return output
+
+
+##################################### Projects APIs ###########################
 @app.route('/projects', methods=['GET', 'POST'])
 def all_projects():
     
@@ -158,7 +251,7 @@ def copy_project():
     response_object['projects'] = PROJECTS
     return jsonify(response_object)
 
-######################################## For Demonstrations ##################################
+######################################## Demonstrations APIs ##################################
 
 @app.route('/getprojectdata', methods=['GET', 'POST'])
 def getProjectData():
@@ -296,7 +389,7 @@ def updateDemo():
     response_object['demos'] = demos
     return jsonify(response_object)
 
-######################################## For Actions ########################
+######################################## Demonstration: Actions APIs ########################
 
 # # actions are properties of a demo
 # @app.route('/addaction', methods=['GET', 'POST'])
@@ -402,6 +495,24 @@ def get_actions():
     return jsonify(response_object)
     # return jsonify(response_object)
 
+@app.route('/getsequence', methods=['GET','POST'])
+def get_sequence():
+    demos=[]
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('project_id')
+    proj_parent_name = post_data.get('project_name')
+    demo_parent_id = post_data.get('demo_id')
+    if os.path.exists(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json')):
+        with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+            demos = json.load(dfile)
+        for demo in demos:
+            for k, v in demo.items():
+                if v == demo_parent_id:
+                    response_object['action_sequence']=demo['action_sequence']
+    return jsonify(response_object)
+    # return jsonify(response_object)
+
 @app.route('/addactions', methods=['POST'])
 def add_actions():
     demos=[]
@@ -480,7 +591,50 @@ def updateAction():
     response_object['demos'] = demos
     return jsonify(response_object)
 
-############################### Problems APIs#############################################################
+
+# @app.route('/generatesequence', methods=['GET', 'POST'])
+# def generateSequence():
+#     response_object = {'status': 'success'}
+#     post_data = request.get_json()
+#     proj_parent_id = post_data.get('parent_id')
+#     proj_parent_name = post_data.get('parent_name')
+#     demo_id = post_data.get('demo_id')
+#     with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+#         demos = json.load(dfile)
+#     for demo in demos:
+#         for k, v in demo.items():
+#             if v == demo_id:
+#                 actions = demo.get("actions")
+#                 sequence = generate_sequence(actions)
+    
+#     response_object['sequence'] = sequence
+#     return jsonify(response_object)
+# 
+@app.route('/generatesequence', methods=['GET', 'POST'])
+def generateSequence():
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('parent_id')
+    proj_parent_name = post_data.get('parent_name')
+    demo_id = post_data.get('demo_id')
+    with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+        demos = json.load(dfile)
+    for demo in demos:
+        for k, v in demo.items():
+            if v == demo_id:
+                actions = demo.get("actions")
+                sequence = generate_sequence(actions)
+    
+    output_dict = {'action_sequence': sequence}
+    demo.update(output_dict)
+    with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'), 'w') as fp:
+        json.dump(demos, fp)
+
+    # Convert the dictionary to a JSON string with indentation
+    response_object['demos'] = demos
+    return jsonify(response_object)                   
+
+############################### Problems APIs ####################################
 
 
 if __name__ == '__main__':
