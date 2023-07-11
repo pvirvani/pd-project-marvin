@@ -70,7 +70,18 @@
         @click="deleteprompt = true"
         type="submit"
       />
-
+      <!-- Functionality of Genearte Domain Button -->
+      
+        <q-btn
+        color="green"
+        icon="o_account_tree"
+        label="Generate Domain"
+        padding="6px 190px "
+        @click="generateDomain(parent_id,parent_name);showDomain=true"
+        type="submit"
+      />
+      
+     
       <!-- add prompt for flask api -->
       <q-dialog v-model="addprompt" persistent auto-close="false">
         <q-card style="min-width: 350px">
@@ -249,12 +260,12 @@
         @click="addactionprompt = true"
       />
       <!-- Functionality of Edit Button -->
-      <q-btn
+      <!-- <q-btn
         color="primary"
         icon="o_drive_file_rename_outline"
         label="Edit"
         @click="editactionprompt = true"
-      />
+      /> -->
 
       <!-- Functionality of Delete Button -->
       <q-btn
@@ -291,7 +302,7 @@
             <div class="text-h6">Action Data</div>
           </q-card-section>
 
-          <q-card-section class="q-pt-none">
+          <!-- <q-card-section class="q-pt-none">
             <q-form class="q-gutter-md">
               <q-input
                 filled
@@ -305,7 +316,7 @@
                 ]"
               />
             </q-form>
-          </q-card-section>
+          </q-card-section> -->
 
           <q-card-section class="q-pt-none">
             <q-form class="q-gutter-md">
@@ -489,6 +500,7 @@
 
       
     </div>
+
   </div>
 </template>
 
@@ -501,6 +513,7 @@ import { api } from "../boot/axios";
 import { useQuasar } from "quasar";
 import RosConnection from "src/pages/RosConnection.vue";
 import { action_parameter } from "src/stores/action_parameter";
+import { global_pid } from "src/stores/global_pid";
 
 const $q = useQuasar();
 
@@ -516,6 +529,7 @@ let demos = ref([]);
 let selectedDemo = ref([]);
 let displayActions = ref(false);
 let showSequence = ref(false)
+let showDomain = ref(false)
 
 const columns = [
   // {
@@ -531,7 +545,7 @@ const columns = [
     name: "demo_name",
     label: "Demonstration Name",
     required: true,
-    align: "center",
+    align: "left",
     field: (row) => row.demo_name,
     format: (val) => `${val}`,
     sortable: true,
@@ -540,7 +554,7 @@ const columns = [
     name: "demo_actions",
     label: "Actions",
     required: true,
-    align: "center",
+    align: "left",
     field: (row) => row.demo_actions,
     format: (val) => `${val}`,
     sortable: true,
@@ -566,21 +580,21 @@ const actioncolumns = [
   //     format: val => `${val}`,
   //     sortable: true
   // },
-  {
-    name: "action_name",
-    label: "Action Name",
-    required: true,
-    align: "center",
-    field: (row) => row.action_name,
-    format: (val) => `${val}`,
-    sortable: true,
-  },
+  // {
+  //   name: "action_name",
+  //   label: "Action Name",
+  //   required: true,
+  //   align: "left",
+  //   field: (row) => row.action_name,
+  //   format: (val) => `${val}`,
+  //   sortable: true,
+  // },
 
   {
     name: "actions",
     label: "Actions",
     required: true,
-    align: "center",
+    align: "left",
     field: (row) => row.action_parameters,
     format: (val) => `${val}`,
     sortable: true,
@@ -781,10 +795,14 @@ let editactionprompt = ref(false);
 let selectedAction = ref([]);
 // let actions = ref([]);
 let cr_actions = ref([]);
-let aname = ref("");
+// let aname = ref("");
+const aname = "action";
 let astore = action_parameter();
+let gpidstore = global_pid();
 let ac_sequence = ref([])
-let action_sequence = ref([])
+// let action_sequence = ref([])
+let domain = ref('')
+let domain_fomatted= ref('')
 
 const action_columns = [
   {
@@ -951,6 +969,35 @@ function editAction(pt_id, pt_name, pd_id, act_id, act_name) {
     });
 }
 
+function generateDomain(pt_id, pt_name) {
+  const payload = {
+    parent_id: pt_id,
+    parent_name: pt_name,
+  };
+  api
+    .post("/generatedomain", payload)
+    .then((response) => {
+      domain.value = response.data.ppdl_content;
+      gpidstore.setdomain(domain.value);
+      $q.notify({
+        color: "green",
+        position: "top",
+        message: "Domain Generated",
+        icon: "o_done",
+        timeout: 500,
+      });
+    })
+    .catch(() => {
+      $q.notify({
+        color: "negative",
+        position: "top",
+        message: "Failed to Generate Domain",
+        icon: "report_problem",
+        timeout: 500,
+      });
+    });
+}
+
 function generateSequence(pt_id, pt_name, pd_id) {
   const payload = {
     parent_id: pt_id,
@@ -990,6 +1037,6 @@ function initactionForm() {
   // pactions.value = "";
 }
 
-getProjectData(parent_id);
+getProjectData(parent_id)
 // getDemos(parent_id,parent_name)
 </script>

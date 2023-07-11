@@ -57,13 +57,13 @@
 <br />
 <br />
 <br />
+<!-- <br />
 <br />
 <br />
 <br />
 <br />
-<br />
-<br />
-<q-btn to="domain"
+<br /> -->
+<q-btn to="/newdomain"
       color="primary"
       push
       label="Domain"

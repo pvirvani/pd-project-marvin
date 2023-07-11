@@ -1,6 +1,0 @@
-pick(white_cube_p0101)
-place(white_cube_p0205)
-pick(red_cube_p0501)
-stack(red_cube_p0501,white_cube_p0205)
-pick(green_cube_p0201)
-stack(green_cube_p0201,red_cube_p0501)

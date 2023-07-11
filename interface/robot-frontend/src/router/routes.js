@@ -130,9 +130,9 @@ const routes = [
     children: [{ path: "", component: () => import("src/pages/StoreTest.vue") }],
   },
   {
-    path: "/domain",
+    path: "/ondomain",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/OnDomain.vue") }],
+    children: [{ path: "", component: () => import("src/pages/OnDomain.vue") }],
   },
   {
     path: "/problems",
@@ -140,24 +140,32 @@ const routes = [
     children: [{ path: "", component: () => import("src/pages/OnProblems.vue") }],
   },
   {
-    path: "/oldproblems",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("src/old_pages/OnProblems.vue") }],
-  },
-  {
-    path: "/openproblems",
+    path: "/newdomain",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      { path: "", component: () => import("src/old_pages/OnOpenProblems.vue") },
+      { path: "", component: () => import("src/pages/NewDomain.vue") },
     ],
   },
-  {
-    path: "/problemvalidation",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [
-      { path: "", component: () => import("src/old_pages/OnProblemValidation.vue") },
-    ],
-  },
+
+  // {
+  //   path: "/oldproblems",
+  //   component: () => import("layouts/MainLayout.vue"),
+  //   children: [{ path: "", component: () => import("src/old_pages/OnProblems.vue") }],
+  // },
+  // {
+  //   path: "/openproblems",
+  //   component: () => import("layouts/MainLayout.vue"),
+  //   children: [
+  //     { path: "", component: () => import("src/old_pages/OnOpenProblems.vue") },
+  //   ],
+  // },
+  // {
+  //   path: "/problemvalidation",
+  //   component: () => import("layouts/MainLayout.vue"),
+  //   children: [
+  //     { path: "", component: () => import("src/old_pages/OnProblemValidation.vue") },
+  //   ],
+  // },
 
   // Always leave this as last one,
   // but you can also remove it

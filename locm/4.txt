@@ -1,0 +1,4 @@
+pick(red_brick_1_p0000:p0001:1:False)
+place(red_brick_1_p0308:p0309:1:False)
+pick(red_cube_2_p0203:1)
+stack(red_cube_2_p0203:1,red_cube_2_p0308:2)

@@ -16,44 +16,44 @@ def position_publisher():
             # pos1 = "p_02_0%s" % str(n)
             # pos2 = "p_02_1%s" % str(n+1)
             # lego = "wc1%s" % str(n)
-            pickedpos = ['p_01_01','p_01_02',1,'false']
-            placedpos = ['p_05_02','p_06_02',1,'true']
-            lego = 'bb5'
+            pickedpos = ["p_01_01","p_01_02",1,"false"]
+            placedpos = ["p_05_02","p_06_02",1,"true"]
+            lego = "bb5"
             # id = ''.join(filter(str.isdigit, lego))
             id = lego[2:]
             # strings = ''.join(filter(str.isalpha, lego))
             # rospy.logwarn("id is {}, and strings is {}".format(id, strings))
             color= lego[0]
-            object=lego[1]
-            rospy.logwarn("color = {}, object = {}, and id = {}".format(color, object, id))
-            if color == 'b':
-                 color = 'blue'
-            elif color == 'r':
-                 color = 'red'
-            elif color == 'g':
-                 color = 'green'
-            elif color == 'y':
-                 color = 'yellow'
-            elif color == 'w':
-                 color = 'white'
-            elif color == 'k':
-                 color = 'black'
-            elif color == 'p':
-                 color = 'purple'
-            elif color == 'o':
-                 color = 'olive'
+            lego=lego[1]
+            rospy.logwarn("color = {}, lego = {}, and id = {}".format(color, lego, id))
+            if color == "b":
+                 color = "blue"
+            elif color == "r":
+                 color = "red"
+            elif color == "g":
+                 color = "green"
+            elif color == "y":
+                 color = "yellow"
+            elif color == "w":
+                 color = "white"
+            elif color == "k":
+                 color = "black"
+            elif color == "p":
+                 color = "purple"
+            elif color == "o":
+                 color = "olive"
             else:
                  color = color
-            if object == 'c':
-                 object = 'cube'
-            elif object == 'b':
-                 object = 'brick'
-            elif object == 'r':
-                 object = 'bar'
+            if lego == "c":
+                 lego = "cube"
+            elif lego == "b":
+                 lego = "brick"
+            elif lego == "r":
+                 lego = "bar"
             else:
-                 object =object                 
+                 lego =lego                 
 
-            bdata = {'object':object, 'color':color, 'id':id,'pickedfrom':pickedpos, 'placedat':placedpos}
+            bdata = {"color":color, "lego":lego, "id":id,"pickedfrom":pickedpos, "placedat":placedpos}
             rospy.loginfo(str(bdata))
             pub.publish(str(bdata))
             rate.sleep()

@@ -3,7 +3,8 @@ import { defineStore } from "pinia";
 export const global_pid = defineStore("global_pid", {
   state: () => ({
     global_pid: "",
-    global_pname:""
+    global_pname: "",
+    project_domain: ""
   }),
   getters: {
     // doubleCount: (state) => state.counter * 2,
@@ -20,9 +21,16 @@ export const global_pid = defineStore("global_pid", {
     },
     getgname() {
       return this.global_pname
+    },
+    setdomain(domain) {
+      this.project_domain = domain
+    },
+    getdomain() {
+      return this.project_domain
     }
     // removegid(){
     //     this.global_pid.pop()
     // }
   },
+
 });

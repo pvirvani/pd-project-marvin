@@ -4,8 +4,14 @@ from flask import Flask, jsonify, request
 import json
 import os
 import uuid
+import sys
+# parent_dir = os.path.abspath('~/Dropbox/git_repositories/pd-project-marvin/interface/locm')
+parent_dir = os.path.abspath('../locm')
+print(parent_dir)
 
-
+# Add the parent directory to the Python module search path
+sys.path.append(parent_dir)
+from locm3 import domain_gen 
 # configuration
 DEBUG = True
 
@@ -106,7 +112,7 @@ else:
                 place_action = f"place({color}_{lego}_{lego_id}_{placedat_str})"
                 output.append(place_action)
     
-    #return '\n'.join(output)
+    #   return '\n'.join(output)
     return output """
 
 def generate_sequence(actions):
@@ -632,10 +638,82 @@ def generateSequence():
 
     # Convert the dictionary to a JSON string with indentation
     response_object['demos'] = demos
+    return jsonify(response_object)
+
+@app.route('/generatedomain', methods=['GET', 'POST'])
+def generateDomain():
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('parent_id')
+    proj_parent_name = post_data.get('parent_name')
+    result = []
+    with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'demos.json'),'r') as dfile:
+        demos = json.load(dfile)
+    for item in demos:
+        if isinstance(item, dict) and 'action_sequence' in item:
+            result.extend(item['action_sequence'])
+
+    ppdl_content = domain_gen(result,proj_parent_name+'_'+proj_parent_id)
+    
+
+    # Convert the dictionary to a JSON string with indentation
+    response_object['ppdl_content'] = ppdl_content
     return jsonify(response_object)                   
 
 ############################### Problems APIs ####################################
 
+@app.route('/getproblems', methods=['GET', 'POST'])
+def getProblems():
+    problems = []
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('parent_id')
+    proj_parent_name = post_data.get('parent_name')
+    if os.path.exists(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'problems.json')):
+        with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'problems.json'),'r') as dfile:
+            problems = json.load(dfile)        
+    else:
+        response_object['message'] = 'problems Empty'
+
+    response_object['problems'] = problems
+    return jsonify(response_object)
+
+@app.route('/addproblem', methods=['GET', 'POST'])
+def addProblem():
+    problems = []
+    response_object = {'status': 'success'}
+    post_data = request.get_json()
+    proj_parent_id = post_data.get('parent_id')
+    proj_parent_name = post_data.get('parent_name')
+    problem_id = uuid.uuid4().hex
+    if os.path.exists(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'problems.json')):
+        with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'problems.json'),'r') as dfile:
+            problems = json.load(dfile)
+        problems.append({
+            'parent_id': proj_parent_id,
+            'parent_name': proj_parent_name,
+            'problem_id': problem_id,
+            'problem_name': post_data.get('p_name'),
+            'init_state':[],
+            'goal_state':[]
+        })
+        with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'problems.json'), 'w') as fp:
+            json.dump(problems, fp)
+             
+    else:
+        problems.append({
+            'parent_id': proj_parent_id,
+            'parent_name': proj_parent_name,
+            'problem_id': problem_id,
+            'problem_name': post_data.get('p_name'),
+            'init_state':[],
+            'goal_state':[]
+        })
+        with open(os.path.join('projects',proj_parent_name+'_'+proj_parent_id,'problems.json'), 'w') as fp:
+            json.dump(problems, fp)
+
+    response_object['problems'] = problems
+    return jsonify(response_object)
 
 if __name__ == '__main__':
     app.run()

@@ -3,5 +3,8 @@
     "html.format.indentHandlebars": true,
     "html.format.indentInnerHtml": true,
     "html.format.templating": true,
-    "html.format.wrapAttributes": "force"
+    "html.format.wrapAttributes": "force",
+    "python.analysis.extraPaths": [
+        "./locm"
+    ]
 }

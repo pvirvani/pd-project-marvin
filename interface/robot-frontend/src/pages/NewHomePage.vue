@@ -1,5 +1,6 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
+    <div class="q-pa-md q-gutter-sm" style="width: 600px">
     <q-table
       title="Projects"
       :columns="columns"
@@ -264,6 +265,7 @@
       }}
     </div>
   </div>
+  </div>
 </template>
 
 <script setup>
@@ -305,29 +307,29 @@ const columns = [
     name: "p_name",
     label: "Project Name",
     required: true,
-    align: "center",
+    align: "left",
     field: (row) => row.p_name,
     format: (val) => `${val}`,
     sortable: true,
   },
-  {
-    name: "p_problems",
-    label: "Problems",
-    required: true,
-    align: "center",
-    field: (row) => row.p_problems,
-    format: (val) => `${val}`,
-    sortable: true,
-  },
-  {
-    name: "p_actions",
-    label: "Actions",
-    required: true,
-    align: "center",
-    field: (row) => row.p_actions,
-    format: (val) => `${val}`,
-    sortable: true,
-  },
+  // {
+  //   name: "p_problems",
+  //   label: "Problems",
+  //   required: true,
+  //   align: "left",
+  //   field: (row) => row.p_problems,
+  //   format: (val) => `${val}`,
+  //   sortable: true,
+  // },
+  // {
+  //   name: "p_actions",
+  //   label: "Actions",
+  //   required: true,
+  //   align: "left",
+  //   field: (row) => row.p_actions,
+  //   format: (val) => `${val}`,
+  //   sortable: true,
+  // },
 ];
 
 function getProject() {
